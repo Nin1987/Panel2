@@ -1,0 +1,42 @@
+.product-filter-container
+{
+    border: #d9d9d9 solid 1px;
+    padding : 1rem;
+    margin-bottom: 1rem;
+    background-color: #ffffff;
+    width:50%!important;
+    overflow-y: scroll;
+    height:75vh;
+}
+.roll-list-overflow
+{
+    overflow-y: scroll;
+    height:250px;
+}
+.roll-list
+{
+
+    width:auto;
+    transition: all 0.4s;
+    padding-left: 2rem!important;
+    padding-right: 2rem!important;
+    padding-bottom: 2rem!important;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 4px rgba(61, 61, 61, 0.5);
+
+    text-align: center !important;
+    margin-bottom: 2rem;
+}
+
+.roll-list:hover
+{
+  box-shadow: 0px 0px 10px rgba(61, 61, 61, 0.8);
+}
+
+@media (max-width: 768px)
+{
+    .product-filter-container
+    {
+        width: 100%!important;
+    }
+}

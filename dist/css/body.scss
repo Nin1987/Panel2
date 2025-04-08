@@ -1,0 +1,199 @@
+
+$colors: (
+  "color1": #F5F5F5,
+  "color2" : #FFFFFF,
+  "color3" : #08080800,
+  "color4" : #00000029,
+  "color5" : #C18549,
+  "color6" : #080808,
+  "color7" : #574029,
+  "color8" : #000000,
+  "color9" : #848484
+  
+  );
+  @each $color, $a in $colors
+  {
+    .fc-#{$color}
+    {
+        color: $a;
+    }
+    .bc-#{$color}
+    {
+        background-color: $a;
+    }
+  }
+  body
+  {
+    font-family: Sora;
+    font-weight: 100;
+  }
+a, button
+{
+  text-decoration: none;
+  transition: all 0.5s;
+}
+  .button-circle
+  {
+    border-radius: 26px;
+    padding: 1.6rem;
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+  }
+
+  .button-white
+  {
+    border: 1px solid map-get($colors, "color6");
+    background-color: map-get($colors, "color2");
+    font: 200 normal normal 19px Sora;
+    color: map-get($colors, "color6");
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .button-orange
+  {
+    border: 1px solid map-get($colors, "color5");
+    background-color: map-get($colors, "color5");
+    font: 200 normal normal 19px Sora;
+    color: map-get($colors, "color6");
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .button-white:hover, .button-orange:hover
+  {
+    border: 1px solid map-get($colors, "color6");
+    background-color: map-get($colors, "color6");
+    font: 200 normal normal 19px Sora;
+    color: map-get($colors, "color2");
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  .scoria-menu
+  {
+    list-style: none;
+    padding: 0;
+    display: block;
+    line-height: 200%;
+  }
+  a:hover.fc-color2, a:hover.fc-color6
+  {
+    
+    color:map-get($colors , "color5" );
+  }
+  a>.white-ico
+  {
+    transition: all 0.5s;
+    fill:map-get($colors , "color2" );
+  }
+  a:hover>.white-ico
+  {
+    fill:map-get($colors , "color5" );
+  }
+  .social-media>div
+  {
+    margin-right:2.5rem;
+    margin-top: 1.5rem;
+  }
+  .bottom-orange-border
+  {
+    border-bottom: 1px solid map-get($colors, "color5" );
+  }
+  .bottom-black-border
+  {
+    border-bottom: 1px solid map-get($colors, "color6" );
+  }
+  .bottom-silver-border
+  {
+    border-bottom: 1px solid #CCCCCC;
+  }
+  .f-footer-light
+  {
+    font-family: 'Sora';
+    font-size: 12px;
+    font-weight: 100;
+  }
+  .link-story
+  {
+
+    font-family: 'Sora';
+    font-size: 14px;
+    font-weight: 100;
+    letter-spacing: 2.8px;
+    color: map-get($colors, "color6");
+    text-transform: uppercase;
+    opacity: 1; 
+  }
+  .panel-hr
+  {
+    font: normal normal 200 95px/127px Sora;
+    font-family: 'Sora'!important;
+    letter-spacing: 0px;
+    color: map-get($colors, "color6");
+  }
+  .radius-20
+  {
+    border-radius: 20px;
+  }
+  .squar-price
+  {
+    font: normal normal 200 57px/76px Sora;
+    letter-spacing: 0px;
+    color: map-get($colors, "color6");
+  }
+  .squar-text
+  {
+    font: normal normal 200 18px/24px Sora;
+    letter-spacing: 0px;
+    color: map-get($colors, "color6");
+  }
+  .mt-squar
+  {
+    margin-top: 6rem;
+  }
+
+  .link-menu
+  {
+    font: normal normal 200 24px/46px Sora;
+  }
+  .title-site
+  {
+    font: normal normal 300 35px/47px Sora;
+    letter-spacing: 0px;
+    color: map-get($colors, "color6");
+  }
+  .small-title-site
+  {
+    font: normal normal 300 25px/33px Sora;
+    letter-spacing: 0px;
+    color: map-get($colors, "color6");
+    opacity: 1;
+  }
+  .table-title
+  {  
+    font: normal normal 300 13px/17px Sora;
+    letter-spacing: 0px;
+    color: map-get($colors, "color9");
+    opacity: 1;
+  }
+  .table-rows
+  {
+
+    font: normal normal 100 15px/20px Sora;
+    letter-spacing: 0px;
+    color: map-get($colors, "color6");
+  }
+  .panel-input, .panel-input:focus, .panel-input:active
+  {
+      border: 0;
+      outline: none;
+      font: normal normal 100 18px/46px Sora;
+      letter-spacing: 0px;
+      color: map-get($colors, "color6");
+  }
+  label
+  {
+    font: normal normal 200 18px/46px Sora;
+    letter-spacing: 0px;
+    color: map-get($colors, "color9");
+  }

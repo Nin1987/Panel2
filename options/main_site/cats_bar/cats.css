@@ -1,0 +1,12 @@
+.cats-bar > div > a > svg {
+  transition: all 0.5s;
+  fill: #3D3D3D;
+}
+
+.cats-bar > div > a:hover > svg {
+  fill: #ffffff;
+}
+
+.cats-bar > div > a:hover > h2.fc-dark {
+  color: #ffffff;
+}/*# sourceMappingURL=cats.css.map */
