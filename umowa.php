@@ -34,7 +34,7 @@
                         <span class="squar-text d-block mt-squar ">Przewidywana kwota</span>
                         <span class="squar-text d-block">6 ofert</span>
                     </div>
-                </div>
+                </div>d
             </div>
         </div>
     </div>
