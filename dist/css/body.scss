@@ -197,3 +197,19 @@ a, button
     letter-spacing: 0px;
     color: map-get($colors, "color9");
   }
+  .sub-title,   .sub-title:focus
+  {
+    font: normal normal 200 29px/38px Sora;
+    letter-spacing: 0px;
+    color: map-get($colors, "color6");
+    
+  }
+  .index-product
+  {
+    text-decoration: underline;
+    font: normal normal 200 18px/46px Sora;
+    letter-spacing: 0px;
+    color: map-get($colors, "color6");
+    background-color: transparent;
+    border: none;
+  }

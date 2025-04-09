@@ -171,11 +171,52 @@
                         <button href="" class="button-circle button-white mt-3">Dodaj produkt</button>
                     </div>
                     <div class="col-2">
-                        <button class="mt-3">Index produktów</button>
+                        <button class="mt-3 index-product">Index produktów</button>
+                    </div>
+                </div>
+                <div class="row table-title p-4 pt-2 pb-2 bc-color2">
+                    <div class="col ps-0 pb-3 pt-2">
+                        <span class="small-title-site">
+                            Generator rabatu
+                        </span>
                     </div>
                 </div>
 
+                <div class="row table-title ps-4 pe-4 bc-color2">
+                    <div class="col  pb-3">
+                        <span >Rabat dla klienta</span>
+                    </div>
+                    <div class="col  pb-3">
+                        <span >Cena katalogowa</span>
+                    </div>
+                    <div class="col  pb-3">
+                        <span >Cena dla klienta</span>
+                    </div>
+                    <div class="col  pb-3">
+                        <span >Twój zysk</span>
+                    </div>
+                </div>
+                <div class="row table-rows ps-4 pe-4 bc-color2">
+                    <div class="col sub-title pb-3 pt-3 bottom-silver-border">
+                        <input type="number" max="25" min="0" class="panel-input  sub-title" placeholder="0"> <span class="sub-title">%</span>
+                    </div>
+                    <div class="col sub-title pb-3 pt-3 bottom-silver-border">
+                        <span >5 000 zł</span>
+                    </div>
+                    <div class="col sub-title pb-3 pt-3 bottom-silver-border">
+                        <span >4 750 zł</span>
+                    </div>
+                    <div class="col sub-title pb-3 pt-3 bottom-silver-border">
+                        <span class="fc-color5">750 zł</span>
+                    </div>
+                </div>
+                <div class="row table-rows ps-4 pe-4 bc-color2">
+                    <div class="col ps-0 pb-3 pt-5 pb-5">
+                        <button href="" class="button-circle button-orange">Utwórz ofertę</button>
+                    </div>
+                </div>
             </div>
+        
         </div>
     </div>
 
