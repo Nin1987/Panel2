@@ -52,4 +52,4 @@ add_filter( 'template_include', function( $template ) {
     return get_template_directory() . '/'.$templ.'.php';
 } );
 
-define('SITE', '/akamit');
+define('SITE', '/panel');

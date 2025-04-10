@@ -1,4 +1,8 @@
 <?php get_header();?>
+<?php $user = wp_get_current_user();
+
+        $user_name=$user->display_name;
+?>
 <main class="bc-color1">
     <div class="container-fluid">
         <div class="row p-5 pb-2">
@@ -8,7 +12,7 @@
         </div>
         <div class="row p-5 pt-3">
             <div class="col panel-hr">
-                Cześć, Mirek
+                Cześć, <?=$user_name;?>
             </div>
         </div>
     </div>

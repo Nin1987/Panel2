@@ -1,3 +1,9 @@
+<?php
+    if(is_user_logged_in())
+    {
+        header("Location: ".SITE."/panel/portfel");
+    }
+?>
 <?php get_header();?>
 <main class="bc-color1">
     <div class="container-fluid">
