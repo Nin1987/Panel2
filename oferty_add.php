@@ -211,7 +211,7 @@
                     </div>
                 </div>
                 <div class="row table-rows ps-4 pe-4 bc-color2">
-                    <div class="col ps-0 pb-3 pt-5 pb-5">
+                    <div class="col ps-0 pt-5 pb-5">
                         <button href="" class="button-circle button-orange">Utwórz ofertę</button>
                     </div>
                 </div>

@@ -27,12 +27,12 @@ $colors: (
     font-family: Sora;
     font-weight: 100;
   }
-a, button
+a, button, .login-submit>input
 {
   text-decoration: none;
   transition: all 0.5s;
 }
-  .button-circle
+  .button-circle, .login-submit>input
   {
     border-radius: 26px;
     padding: 1.6rem;
@@ -50,7 +50,7 @@ a, button
     -webkit-backdrop-filter: blur(12px);
   }
 
-  .button-orange
+  .button-orange, .login-submit>input
   {
     border: 1px solid map-get($colors, "color5");
     background-color: map-get($colors, "color5");
@@ -60,7 +60,7 @@ a, button
     -webkit-backdrop-filter: blur(12px);
   }
 
-  .button-white:hover, .button-orange:hover
+  .button-white:hover, .button-orange:hover, .login-submit>input:hover
   {
     border: 1px solid map-get($colors, "color6");
     background-color: map-get($colors, "color6");

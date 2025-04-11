@@ -52,4 +52,11 @@ add_filter( 'template_include', function( $template ) {
     return get_template_directory() . '/'.$templ.'.php';
 } );
 
-define('SITE', '/panel');
+define('SITE', '/akamit');
+
+function my_login_form()
+{
+    include("form_login.php");
+}
+
+add_action('my_login_form', 'my_login_form');
