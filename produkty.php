@@ -1,3 +1,12 @@
+<?php
+    if(!is_user_logged_in())
+    {
+        header("Location: ".SITE."/");
+    }
+?>
+
+
+
 <?php get_header();?>
 <main class="bc-color1">
     <div class="container-fluid">
@@ -193,6 +202,34 @@
             </div>
         </div>
     </div>
-
 </main>
+<script>
+    jQuery(document).ready(function($) {
+        const cookieValue = document.cookie
+                .split("; ")
+                .find((row) => row.startsWith("auth_key="))
+                ?.split("=")[1];
+
+        let form_data = new FormData();
+            form_data.append("method", "get_product");
+            form_data.append("user_id", "<?=wp_get_current_user()->ID;?>");
+            form_data.append("api_key", `${cookieValue}`);
+            form_data.append("ip", "<?=IP_USER;?>");
+
+
+        $.ajax({
+            url: 'http://localhost/sklep/wp-json/pro_api/v1/panel',
+            type: 'POST',
+            cache: false,
+            contentType: false,
+            processData: false,
+            data:form_data,
+
+            success: function(response) {
+                    console.log(JSON.parse(response));
+            }
+        });
+        
+    });
+</script>
 <?php get_footer();?>

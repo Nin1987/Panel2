@@ -13,7 +13,7 @@
             ?>
         </div>
     </div>
-
+<?=$_COOKIE['auth_key'];?>
 
 </main>
 <?php get_footer();?>

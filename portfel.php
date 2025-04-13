@@ -1,3 +1,9 @@
+<?php
+    if(!is_user_logged_in())
+    {
+        header("Location: ".SITE."/");
+    }
+?>
 <?php get_header();?>
 <?php $user = wp_get_current_user();
 
@@ -42,6 +48,8 @@
             </div>
         </div>
     </div>
-
 </main>
-<?php get_footer();?>
+
+<?php 
+
+get_footer();?>

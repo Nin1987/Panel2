@@ -1,7 +1,7 @@
 <?php
 
 
-//require('filts/init.php');
+require('options/init.php');
 function add_js()
 {
     wp_enqueue_script( 'jquery-nin', 'https://code.jquery.com/jquery-3.7.0.min.js', array(), '3.7', false );
@@ -52,7 +52,7 @@ add_filter( 'template_include', function( $template ) {
     return get_template_directory() . '/'.$templ.'.php';
 } );
 
-define('SITE', '/akamit');
+define('SITE', '/panel');
 
 function my_login_form()
 {
@@ -60,3 +60,31 @@ function my_login_form()
 }
 
 add_action('my_login_form', 'my_login_form');
+
+function instal_cookie()
+{
+    if(is_user_logged_in() && !isset($_COOKIE['auth_key']))
+    {
+        $get_login_key = new get_login_key();
+        $auth =$get_login_key ->get_login_key();
+        $json = json_decode(json_decode(json_decode($auth)));
+        var_dump($json);
+        if($json->error == 0)
+        {
+            setcookie( 'auth_key', $json->auth, time() + 3600, COOKIEPATH, COOKIE_DOMAIN   );
+        }
+    
+        
+    }
+}
+add_action('init', 'instal_cookie');
+
+$ip =0;
+if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+    $ip = $_SERVER['HTTP_CLIENT_IP'];
+} elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+    $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+} else {
+    $ip = $_SERVER['REMOTE_ADDR'];
+}
+define("IP_USER", $ip);
