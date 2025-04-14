@@ -5,7 +5,7 @@
     }
 ?>
 <?php get_header();?>
-<main class="bc-color1">
+<main class="container-fluid bc-color1">
     <div class="row">
         <div class="col p-5">
         <?php 
@@ -13,7 +13,6 @@
             ?>
         </div>
     </div>
-<?=$_COOKIE['auth_key'];?>
 
 </main>
 <?php get_footer();?>

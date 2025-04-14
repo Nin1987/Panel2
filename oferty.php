@@ -26,7 +26,10 @@
                         <span class="title-site">Lista ofert</span>
                     </div>
                     <div class="col">
-                        <a href="<?=SITE;?>/panel/oferty/add" class="button-circle button-orange">Utwórz ofertę</a>
+                        <a href="<?=SITE;?>/panel/oferty/add" class="button-circle button-orange">Utwórz ofertę (nowy klient)</a>
+                    </div>
+                    <div class="col">
+                        <a href="<?=SITE;?>/panel/oferty/add" class="button-circle button-orange">Utwórz ofertę (klient istniejący)</a>
                     </div>
                 </div>
                 <div class="row table-title mt-4 p-4 bc-color2">
