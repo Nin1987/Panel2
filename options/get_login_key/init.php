@@ -6,7 +6,7 @@ class get_login_key
     public function __construct()
     {
         $this->site_key = 'hfuYt6Ygidwkl29Mmwi28839bb';
-        $this->url="http://localhost/sklep/wp-json/pro_api/v1/panel";
+        $this->url="https://sklep.megawebsite.pl/wp-json/pro_api/v1/panel";
     }
     public function get_login_key()
     {

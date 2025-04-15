@@ -83,7 +83,7 @@
             spinner.style.display = "block";
 
         $.ajax({
-            url: 'http://localhost/sklep/wp-json/pro_api/v1/panel',
+            url: 'https://sklep.megawebsite.pl/wp-json/pro_api/v1/panel',
             type: 'POST',
             cache: false,
             contentType: false,

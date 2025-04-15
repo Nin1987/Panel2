@@ -52,7 +52,7 @@ add_filter( 'template_include', function( $template ) {
     return get_template_directory() . '/'.$templ.'.php';
 } );
 
-define('SITE', '/panel');
+define('SITE', '/akamit');
 
 function my_login_form()
 {
