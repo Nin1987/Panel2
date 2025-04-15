@@ -87,9 +87,13 @@
             url: 'https://sklep.megawebsite.pl/wp-json/pro_api/v1/panel',
             type: 'POST',
             cache: false,
-            contentType: false,
-            processData: false,
-            data:form_data,
+            contentType: 'application/json',
+            data: JSON.stringify({
+                method: 'get_product',
+                api_key: 'twoj_klucz',
+                ip: '1.2.3.4',
+                user_id: 1
+    }),
 
             success: function(response) {
                 console.log(response);
