@@ -52,7 +52,7 @@ add_filter( 'template_include', function( $template ) {
     return get_template_directory() . '/'.$templ.'.php';
 } );
 
-define('SITE', '/akamit');
+define('SITE', '/panel');
 
 function my_login_form()
 {
@@ -63,13 +63,14 @@ add_action('my_login_form', 'my_login_form');
 
 function instal_cookie()
 { 
+    
     if((is_user_logged_in() && !isset($_COOKIE['auth_key']) && (!isset($_COOKIE['myid']) || (isset($_COOKIE['myid']) && $_COOKIE['myid'] != wp_get_current_user()->ID)))
         || (is_user_logged_in() && isset($_COOKIE['auth_key']) && (!isset($_COOKIE['myid']) || (isset($_COOKIE['myid']) && $_COOKIE['myid'] != wp_get_current_user()->ID))))
     {
         $get_login_key = new get_login_key();
         $auth =$get_login_key ->get_login_key();
         $json = json_decode($auth);
-       
+       var_dump($json);
         if($json->error == 0)
         {
             setcookie( 'auth_key', $json->auth, time() + 3600, COOKIEPATH, COOKIE_DOMAIN   );

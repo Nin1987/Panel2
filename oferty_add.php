@@ -36,21 +36,21 @@
                 </div>
                 <div class="row table-title p-4 pt-2 pb-2  bc-color2">
                     <div class="col bottom-orange-border ps-0 pb-3 pt-2 me-5">
-                        <input type="text" class="panel-input" placeholder="Imię">
+                        <input type="text" class="panel-input" id="customer_name" placeholder="Imię">
                     </div>
                     <div class="col bottom-orange-border ps-0 pb-3 pt-2">
-                        <input type="text" class="panel-input" placeholder="Nazwisko">
+                        <input type="text" class="panel-input" id="customer_lastname" placeholder="Nazwisko">
                     </div>
                 </div>
                 <div class="row table-title p-4 pt-2 pb-2 bc-color2">
                     <div class="col bottom-orange-border ps-0 pb-3 pt-2">
-                        <input type="text" class="panel-input" placeholder="Nazwa firmy (opcjonalnie)">
+                        <input type="text" class="panel-input" id="customer_company" placeholder="Nazwa firmy (opcjonalnie)">
                     </div>
                 </div>
                 <div class="row table-title p-4 pt-2 pb-2 bc-color2">
                     <div class="col bottom-orange-border ps-0 pb-3 pt-2">
                         <label for="country" class="me-5">Kraj: </label>
-                        <select class="panel-input" id="country">
+                        <select class="panel-input" id="customer_country">
                             <option>Polska</option>
                             <option>Niemcy</option>
                             <option>Francja</option>
@@ -62,30 +62,30 @@
                 </div>
                 <div class="row table-title p-4 pt-2 pb-2 bc-color2">
                     <div class="col bottom-orange-border ps-0 pb-3 pt-2">
-                        <input type="text" class="panel-input" placeholder="Ulica">
+                        <input type="text" class="panel-input" id="customer_street" placeholder="Ulica">
                     </div>
                 </div>
                 <div class="row table-title p-4 pt-2 pb-2 bc-color2">
                     <div class="col bottom-orange-border ps-0 pb-3 pt-2 me-5">
-                        <input type="text" class="panel-input" placeholder="Kod pocztowy">
+                        <input type="text" class="panel-input" id="customer_postalcode" placeholder="Kod pocztowy">
                     </div>
                     <div class="col bottom-orange-border ps-0 pb-3 pt-2">
-                        <input type="text" class="panel-input" placeholder="Miasto">
-                    </div>
-                </div>
-                <div class="row table-title p-4 pt-2 pb-2 bc-color2">
-                    <div class="col bottom-orange-border ps-0 pb-3 pt-2">
-                        <input type="text" class="panel-input" placeholder="Nip (opcjonalnie)">
+                        <input type="text" class="panel-input" id="customer_city" placeholder="Miasto">
                     </div>
                 </div>
                 <div class="row table-title p-4 pt-2 pb-2 bc-color2">
                     <div class="col bottom-orange-border ps-0 pb-3 pt-2">
-                        <input type="text" class="panel-input" placeholder="Numer telefonu">
+                        <input type="text" class="panel-input" id="customer_nip" placeholder="Nip (opcjonalnie)">
                     </div>
                 </div>
                 <div class="row table-title p-4 pt-2 pb-2 bc-color2">
                     <div class="col bottom-orange-border ps-0 pb-3 pt-2">
-                        <input type="text" class="panel-input" placeholder="Adres e-mail">
+                        <input type="text" class="panel-input" id="customer_phone" placeholder="Numer telefonu">
+                    </div>
+                </div>
+                <div class="row table-title p-4 pt-2 pb-2 bc-color2">
+                    <div class="col bottom-orange-border ps-0 pb-3 pt-2">
+                        <input type="text" class="panel-input" id="customer_email" placeholder="Adres e-mail">
                     </div>
                 </div>
 
@@ -181,7 +181,7 @@
                 </div>
                 <div class="row table-rows ps-4 pe-4 bc-color2">
                     <div class="col ps-0 pt-5 pb-5">
-                        <button href="" class="button-circle button-orange">Utwórz ofertę</button>
+                        <button onclick="make_offer();" class="button-circle button-orange">Utwórz ofertę</button>
                     </div>
                 </div>
             </div>
@@ -227,6 +227,85 @@
 
             });
         });
+    function make_offer()
+    {
+        let customer_name = document.getElementById('customer_name');
+        let customer_lastname = document.getElementById('customer_lastname');
+        let customer_company = document.getElementById('customer_company');
+        let customer_country = document.getElementById('customer_country');
+        let customer_street = document.getElementById('customer_street');
+        let customer_postalcode = document.getElementById('customer_postalcode');
+        let customer_city = document.getElementById('customer_city');
+        let customer_nip = document.getElementById('customer_nip');
+        let customer_phone = document.getElementById('customer_phone');
+        let customer_email = document.getElementById('customer_email');
+        let prce_precent = document.getElementById('prce_precent');
+
+        let product_id = document.getElementsByName('product_id');
+        let price_product = document.getElementsByName('price_product');
+        let quantity_product = document.getElementsByName('quantity_product');
+
+        let res;
+        if(customer_name.value != '' && customer_lastname.value != ''  
+        && customer_country.value != '' && customer_street.value != '' && customer_postalcode.value != '' 
+        && customer_city.value != ''  && customer_phone.value != '' 
+        && customer_email.value != '')
+        {
+            if(product_id.length > 0)
+            {
+                let products = [];
+                for(let i =0; i < product_id.length; i++)
+                {
+                    products[i]={product_id: product_id[i].value,
+                                quantity: quantity_product[i].value};
+                }
+                
+                res = {
+                    customer_name:customer_name.value,
+                    customer_lastname:customer_lastname.value,
+                    customer_company: customer_company.value,
+                    customer_country:customer_country.value,
+                    customer_street:customer_street.value,
+                    customer_postalcode:customer_postalcode.value,
+                    customer_city:customer_city.value,
+                    customer_nip:customer_nip.value,
+                    customer_phone:customer_phone.value,
+                    customer_email:customer_email.value,
+                    products: products,
+                    rabat : prce_precent.value,
+                    user_id: <?=wp_get_current_user()->ID;?>
+
+                }
+                
+                const cookieValue = document.cookie
+                .split("; ")
+                .find((row) => row.startsWith("auth_key="))
+                ?.split("=")[1];
+                
+
+            $.ajax({
+                url: 'https://sklep.megawebsite.pl/wp-json/pro_api/v1/panel',
+                type: 'POST',
+                cache: false,
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    method: 'add_new_customer',
+                    api_key: `${cookieValue}`,
+                    ip: "<?=IP_USER;?>",
+                    user_id: "<?=wp_get_current_user()->ID;?>",
+                    cart: res
+                }),
+
+                success: function(response) {
+                        let json = (response);
+                        console.log(response);
+
+                }
+            });
+            }
+        }
+
+    }
     function add_new_product()
     {
         let catalog_number = document.getElementById('catalog_number');
@@ -238,13 +317,6 @@
                 .split("; ")
                 .find((row) => row.startsWith("auth_key="))
                 ?.split("=")[1];
-           
-            let form_data = new FormData();
-                form_data.append("method", "get_product");
-                form_data.append("user_id", "<?=wp_get_current_user()->ID;?>");
-                form_data.append("api_key", `${cookieValue}`);
-                form_data.append("ip", "<?=IP_USER;?>");
-                form_data.append("product_id", catalog_number.value);
                 
                 spinner.style.display="block";
             let product_id = document.getElementsByName('product_id');
@@ -253,9 +325,14 @@
                 url: 'https://sklep.megawebsite.pl/wp-json/pro_api/v1/panel',
                 type: 'POST',
                 cache: false,
-                contentType: false,
-                processData: false,
-                data:form_data,
+                contentType: 'application/json',
+                data: JSON.stringify({
+                method: 'get_product',
+                api_key: `${cookieValue}`,
+                ip: "<?=IP_USER;?>",
+                user_id: "<?=wp_get_current_user()->ID;?>",
+                product_id: catalog_number.value
+    }),
 
                 success: function(response) {
                         let json = (response);

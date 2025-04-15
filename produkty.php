@@ -90,9 +90,9 @@
             contentType: 'application/json',
             data: JSON.stringify({
                 method: 'get_product',
-                api_key: 'twoj_klucz',
-                ip: '1.2.3.4',
-                user_id: 1
+                api_key: `${cookieValue}`,
+                ip: "<?=IP_USER;?>",
+                user_id: "<?=wp_get_current_user()->ID;?>"
     }),
 
             success: function(response) {
