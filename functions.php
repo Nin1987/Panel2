@@ -68,8 +68,8 @@ function instal_cookie()
     {
         $get_login_key = new get_login_key();
         $auth =$get_login_key ->get_login_key();
-        $json = json_decode(json_decode(json_decode($auth)));
-        
+        $json = json_decode($auth);
+       
         if($json->error == 0)
         {
             setcookie( 'auth_key', $json->auth, time() + 3600, COOKIEPATH, COOKIE_DOMAIN   );

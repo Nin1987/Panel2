@@ -68,6 +68,7 @@
         </div>
     </div>
 </main>
+
 <script>
     jQuery(document).ready(function($) {
         const cookieValue = document.cookie
@@ -91,9 +92,9 @@
             data:form_data,
 
             success: function(response) {
-                    let json = JSON.parse(response);
+                console.log(response);
+                    let json = (response);
 
-                    console.log(json);
                     if(json[0]['error'] == 0)
                     {
                         let lista = document.getElementById('product_list');

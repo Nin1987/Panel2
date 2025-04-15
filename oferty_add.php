@@ -258,7 +258,7 @@
                 data:form_data,
 
                 success: function(response) {
-                        let json = JSON.parse(response);
+                        let json = (response);
 
                         if(json[0]['error'] == 0)
                         {
