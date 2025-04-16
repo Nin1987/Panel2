@@ -20,7 +20,7 @@
     <div class="container-fluid">
         <div class="row p-5 pt-5">
             <div class="col-2">
-                <?php include("template/menu/menu.php");?>
+                <?php include(get_template_directory()."/template/menu/menu.php");?>
             </div>
             <div class="col-10">
                 <div class="row">
@@ -54,7 +54,7 @@
                         <span >Numer katalogowy</span>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row  p-4 bc-color2">
                     <div class="col text-center">
                     <div class="spinner-border text-warning m-auto text-center" role="status" id="spinner" style="display: none;">
                     <span class="sr-only"></span>
@@ -99,33 +99,33 @@
                 console.log(response);
                     let json = (response);
 
-                    if(json[0]['error'] == 0)
+                    if(json['error'] == 0)
                     {
                         let lista = document.getElementById('product_list');
                         lista.innerHTML = '';
-                        for(let i =0; i < json[0]['message'].length; i++)
+                        for(let i =0; i < json.message.length; i++)
                         {
                             let html = '<div class="row table-rows ps-4 pe-4 bc-color2">'+
                             '<div class="col bottom-silver-border pb-3 pt-3">'+
-                            '<img src="'+json[0]["message"][i]["photo"]+'" class="w-100"/>'+
+                            '<img src="'+json.message[i]["photo"]+'" class="w-100"/>'+
                             '</div>'+
                             '<div class="col bottom-silver-border pb-3 pt-3">'+
-                            '<span >'+json[0]["message"][i]["product_name"]+'</span>'+
+                            '<span >'+json.message[i]["product_name"]+'</span>'+
                             '</div>'+
                             '<div class="col bottom-silver-border pb-3 pt-3">'+
-                            '<span >'+json[0]["message"][i]["artist"]+'</span>'+
+                            '<span >'+json.message[i]["artist"]+'</span>'+
                             '</div>'+
                             '<div class="col bottom-silver-border pb-3 pt-3">'+
-                            '<span >'+json[0]["message"][i]["price"]+' zł</span>'+
-                            '</div>'+
-                            '<div class="col bottom-silver-border pb-3 pt-3">'+
-                            '<span >Pobierz</span>'+
+                            '<span >'+json.message[i]["price"]+' zł</span>'+
                             '</div>'+
                             '<div class="col bottom-silver-border pb-3 pt-3">'+
                             '<span >Pobierz</span>'+
                             '</div>'+
                             '<div class="col bottom-silver-border pb-3 pt-3">'+
-                            '<span >'+json[0]["message"][i]["special_id"]+'</span>'+
+                            '<span >Pobierz</span>'+
+                            '</div>'+
+                            '<div class="col bottom-silver-border pb-3 pt-3">'+
+                            '<span >'+json.message[i]["special_id"]+'</span>'+
                             '</div>'+
                             '</div>';
                             lista.insertAdjacentHTML('beforeend', html);

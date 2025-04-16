@@ -25,7 +25,7 @@
     <div class="container-fluid">
         <div class="row p-5 pt-3">
             <div class="col-2">
-                <?php include("template/menu/menu.php");?>
+                <?php include(get_template_directory()."/template/menu/menu.php");?>
             </div>
             <div class="col-10">
                 <div class="row">
@@ -51,5 +51,4 @@
 </main>
 
 <?php 
-
 get_footer();?>

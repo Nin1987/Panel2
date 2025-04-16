@@ -1,6 +1,5 @@
 <?php
 
-
 require('options/init.php');
 function add_js()
 {
@@ -49,38 +48,31 @@ add_filter( 'template_include', function( $template ) {
     }
 
 
-    return get_template_directory() . '/'.$templ.'.php';
+    return get_template_directory() . '/template/panel/'.$templ.'.php';
 } );
 
-define('SITE', '/panel');
+define('SITE', '/akamit');
 
 function my_login_form()
 {
-    include("form_login.php");
+    include(get_template_directory() . "/template/panel/form_login.php");
 }
 
 add_action('my_login_form', 'my_login_form');
 
-function instal_cookie()
+function instal_cookie($user_login, $user)
 { 
-    
-    if((is_user_logged_in() && !isset($_COOKIE['auth_key']) && (!isset($_COOKIE['myid']) || (isset($_COOKIE['myid']) && $_COOKIE['myid'] != wp_get_current_user()->ID)))
-        || (is_user_logged_in() && isset($_COOKIE['auth_key']) && (!isset($_COOKIE['myid']) || (isset($_COOKIE['myid']) && $_COOKIE['myid'] != wp_get_current_user()->ID))))
+    $get_login_key = new get_login_key();
+    $auth =$get_login_key ->get_login_key($user->ID);
+    $json = json_decode($auth);
+       
+    if($json->error == 0)
     {
-        $get_login_key = new get_login_key();
-        $auth =$get_login_key ->get_login_key();
-        $json = json_decode($auth);
-       var_dump($json);
-        if($json->error == 0)
-        {
-            setcookie( 'auth_key', $json->auth, time() + 3600, COOKIEPATH, COOKIE_DOMAIN   );
-            setcookie( 'myid', wp_get_current_user()->ID, time() + 3600, COOKIEPATH, COOKIE_DOMAIN   );
-        }
-    
-        
+        setcookie( 'auth_key', $json->auth, time() + 3600, COOKIEPATH, COOKIE_DOMAIN   );
+        setcookie( 'myid', wp_get_current_user()->ID, time() + 3600, COOKIEPATH, COOKIE_DOMAIN   );
     }
 }
-add_action('init', 'instal_cookie');
+add_action('wp_login', 'instal_cookie', 50, 2);
 
 $ip =0;
 if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
@@ -90,4 +82,5 @@ if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
 } else {
     $ip = $_SERVER['REMOTE_ADDR'];
 }
+
 define("IP_USER", $ip);

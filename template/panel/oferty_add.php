@@ -17,7 +17,7 @@
     <div class="container-fluid">
         <div class="row p-5 pt-5">
             <div class="col-2">
-                <?php include("template/menu/menu.php");?>
+                <?php include(get_template_directory()."/template/menu/menu.php");?>
             </div>
             <div class="col-10">
                 
@@ -51,11 +51,11 @@
                     <div class="col bottom-orange-border ps-0 pb-3 pt-2">
                         <label for="country" class="me-5">Kraj: </label>
                         <select class="panel-input" id="customer_country">
-                            <option>Polska</option>
-                            <option>Niemcy</option>
-                            <option>Francja</option>
-                            <option>Belgia</option>
-                            <option>Anglia</option>
+                            <option value="PL">Polska</option>
+                            <option value="DE">Niemcy</option>
+                            <option value="FR">Francja</option>
+                           
+                            <option value="ENG">Anglia</option>
                         </select>
                        
                     </div>
@@ -190,8 +190,34 @@
     </div>
 
 </main>
+<div class="container-fluid position-fixed top-0 start-0" style="background-color:#000000b8; width:100vw; height:100vh; display:none;" id="push_message">
+    <div class="row  h-100">
+        <div class="col  h-100">
+            <div class="m-auto  h-100 d-flex align-items-center">
+                <div class="m-auto table-title p-4 bc-color2 text-center">
+                    <p>
+                        <span id="push_title" class="fc-color6">w</span>
+                    </p>
+                    <p>
+                        <span id="push_tmessage" class="fc-color6">w</span>
+                    </p>
+                    <p>
+                        <button onclick="close_push();" class="button-circle button-orange">Zamknij</button>
+                    </p>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
+    function close_push()
+    {
+        document.getElementById('push_message').style.display="none";
+    }
+
+
         jQuery(document).ready(function($) {
             $('#prce_precent').change( function()
             {
@@ -244,6 +270,8 @@
         let product_id = document.getElementsByName('product_id');
         let price_product = document.getElementsByName('price_product');
         let quantity_product = document.getElementsByName('quantity_product');
+
+        let push_up = document.getElementById('push_message');
 
         let res;
         if(customer_name.value != '' && customer_lastname.value != ''  
@@ -298,7 +326,17 @@
 
                 success: function(response) {
                         let json = (response);
-                        console.log(response);
+                        console.log(json);
+                        if(json.error == 0)
+                        {
+                            document.getElementById('push_title').innerHTML="Oferta dodana";
+                        }
+                        else
+                        {
+                            document.getElementById('push_title').innerHTML="Wystąpił błąd";
+                        }
+                        document.getElementById('push_tmessage').innerHTML=json.message;
+                        push_up.style.display="block";
 
                 }
             });
@@ -310,6 +348,7 @@
     {
         let catalog_number = document.getElementById('catalog_number');
         let spinner = document.getElementById('spinner');
+        let push_up = document.getElementById('push_message');
         
         if(catalog_number.value != '')
         {
@@ -337,7 +376,7 @@
                 success: function(response) {
                         let json = (response);
 
-                        if(json[0]['error'] == 0)
+                        if(json.error == 0)
                         {
                             let lista = document.getElementById('product_list');
                             let stop = false;
@@ -346,7 +385,7 @@
                          {
                             for(let a = 0; a < product_id.length; a++)
                             {
-                                if(product_id[a].value == json[0]["message"][0]["special_id"])
+                                if(product_id[a].value == json.message[0]["special_id"])
                                 {
                                     stop = true;
                                 }
@@ -354,38 +393,44 @@
                          }
                          if(!stop)
                          {
-                            for(let i =0; i < json[0]['message'].length; i++)
+                            for(let i =0; i < json.message.length; i++)
                             {
                                 
                                 let html = '<div class="row table-rows ps-4 pe-4 bc-color2">'+
                                     '<div class="col bottom-silver-border pb-3 pt-3">'+
-                                    '<img src="'+json[0]["message"][i]["photo"]+'" class="w-100"/>'+
+                                    '<img src="'+json.message[i]["photo"]+'" class="w-100"/>'+
                                     '</div>'+
                                     '<div class="col bottom-silver-border pb-3 pt-3">'+
-                                    '<span >'+json[0]["message"][i]["product_name"]+'</span>'+
+                                    '<span >'+json.message[i]["product_name"]+'</span>'+
                                     '</div>'+
                                     '<div class="col bottom-silver-border pb-3 pt-3">'+
-                                    '<span >'+json[0]["message"][i]["price"]+' zł</span>'+
-                                    '</div>'+
-                                    '<div class="col bottom-silver-border pb-3 pt-3">'+
-                                    '<span >Pobierz</span>'+
+                                    '<span >'+json.message[i]["price"]+' zł</span>'+
                                     '</div>'+
                                     '<div class="col bottom-silver-border pb-3 pt-3">'+
                                     '<span >Pobierz</span>'+
                                     '</div>'+
                                     '<div class="col bottom-silver-border pb-3 pt-3">'+
-                                    '<span >'+json[0]["message"][i]["special_id"]+'</span>'+
+                                    '<span >Pobierz</span>'+
                                     '</div>'+
                                     '<div class="col bottom-silver-border pb-3 pt-3">'+
-                                        '<input type="number" class="panel-input" min="0" max="'+json[0]["message"][i]["max"]+'" value="1" name="quantity_product">'+
-                                        '<input type="hidden" name="price_product" value="'+json[0]["message"][i]["price"]+'">'+
-                                        '<input type="hidden" name="product_id" value="'+json[0]["message"][i]["special_id"]+'">'+
+                                    '<span >'+json.message[i]["special_id"]+'</span>'+
+                                    '</div>'+
+                                    '<div class="col bottom-silver-border pb-3 pt-3">'+
+                                        '<input type="number" class="panel-input" min="0" max="'+json.message[i]["max"]+'" value="1" name="quantity_product">'+
+                                        '<input type="hidden" name="price_product" value="'+json.message[i]["price"]+'">'+
+                                        '<input type="hidden" name="product_id" value="'+json.message[i]["special_id"]+'">'+
                                     '</div>'+
                                 '</div>';
                                 lista.insertAdjacentHTML('beforeend', html);
                             }
                          }
+                        }
+                        else
+                        {
+                            document.getElementById('push_title').innerHTML="Wystąpił błąd";
+                            document.getElementById('push_tmessage').innerHTML=json.message;
 
+                            push_up.style.display="block";
                         }
                         spinner.style.display="none";
                 }

@@ -8,7 +8,7 @@ class get_login_key
         $this->site_key = 'hfuYt6Ygidwkl29Mmwi28839bb';
         $this->url="https://sklep.megawebsite.pl/wp-json/pro_api/v1/panel";
     }
-    public function get_login_key()
+    public function get_login_key($user_id)
     {
         $ip =0;
         if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
@@ -22,7 +22,7 @@ class get_login_key
         $post_data = json_encode(array('method' => 'get_secret_key',
                         'site_key'=> $this->site_key,
                         'ip'=> $ip,
-                        'user_id'=> wp_get_current_user()->ID
+                        'user_id'=> $user_id
                         ));
 
 
