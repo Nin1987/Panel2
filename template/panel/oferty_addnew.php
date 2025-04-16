@@ -3,6 +3,9 @@
     {
         header("Location: ".SITE."/");
     }
+
+    $NinPdf = new NinPdf();
+    $NinPdf->test();
 ?>
 <?php get_header();?>
 <main class="bc-color1">
@@ -23,7 +26,7 @@
                 
                 <div class="row">
                     <div class="col">
-                        <span class="title-site">Utwórz ofertę dla klienta</span>
+                        <span class="title-site">Utwórz ofertę dla istniejącego klienta</span>
                     </div>
 
                 </div>
@@ -32,55 +35,6 @@
                         <span class="small-title-site">
                             Dane klienta
                         </span>
-                    </div>
-                </div>
-                <div class="row table-title p-4 pt-2 pb-2  bc-color2">
-                    <div class="col bottom-orange-border ps-0 pb-3 pt-2 me-5">
-                        <input type="text" class="panel-input" id="customer_name" placeholder="Imię">
-                    </div>
-                    <div class="col bottom-orange-border ps-0 pb-3 pt-2">
-                        <input type="text" class="panel-input" id="customer_lastname" placeholder="Nazwisko">
-                    </div>
-                </div>
-                <div class="row table-title p-4 pt-2 pb-2 bc-color2">
-                    <div class="col bottom-orange-border ps-0 pb-3 pt-2">
-                        <input type="text" class="panel-input" id="customer_company" placeholder="Nazwa firmy (opcjonalnie)">
-                    </div>
-                </div>
-                <div class="row table-title p-4 pt-2 pb-2 bc-color2">
-                    <div class="col bottom-orange-border ps-0 pb-3 pt-2">
-                        <label for="country" class="me-5">Kraj: </label>
-                        <select class="panel-input" id="customer_country">
-                            <option value="PL">Polska</option>
-                            <option value="DE">Niemcy</option>
-                            <option value="FR">Francja</option>
-                           
-                            <option value="ENG">Anglia</option>
-                        </select>
-                       
-                    </div>
-                </div>
-                <div class="row table-title p-4 pt-2 pb-2 bc-color2">
-                    <div class="col bottom-orange-border ps-0 pb-3 pt-2">
-                        <input type="text" class="panel-input" id="customer_street" placeholder="Ulica">
-                    </div>
-                </div>
-                <div class="row table-title p-4 pt-2 pb-2 bc-color2">
-                    <div class="col bottom-orange-border ps-0 pb-3 pt-2 me-5">
-                        <input type="text" class="panel-input" maxlength="6" id="customer_postalcode" placeholder="Kod pocztowy">
-                    </div>
-                    <div class="col bottom-orange-border ps-0 pb-3 pt-2">
-                        <input type="text" class="panel-input" id="customer_city" placeholder="Miasto">
-                    </div>
-                </div>
-                <div class="row table-title p-4 pt-2 pb-2 bc-color2">
-                    <div class="col bottom-orange-border ps-0 pb-3 pt-2">
-                        <input type="text" class="panel-input" id="customer_nip" placeholder="Nip (opcjonalnie)">
-                    </div>
-                </div>
-                <div class="row table-title p-4 pt-2 pb-2 bc-color2">
-                    <div class="col bottom-orange-border ps-0 pb-3 pt-2">
-                        <input type="text" class="panel-input" id="customer_phone" placeholder="Numer telefonu">
                     </div>
                 </div>
                 <div class="row table-title p-4 pt-2 pb-2 bc-color2">
@@ -255,15 +209,7 @@
         });
     function make_offer()
     {
-        let customer_name = document.getElementById('customer_name');
-        let customer_lastname = document.getElementById('customer_lastname');
-        let customer_company = document.getElementById('customer_company');
-        let customer_country = document.getElementById('customer_country');
-        let customer_street = document.getElementById('customer_street');
-        let customer_postalcode = document.getElementById('customer_postalcode');
-        let customer_city = document.getElementById('customer_city');
-        let customer_nip = document.getElementById('customer_nip');
-        let customer_phone = document.getElementById('customer_phone');
+
         let customer_email = document.getElementById('customer_email');
         let prce_precent = document.getElementById('prce_precent');
 
@@ -274,10 +220,7 @@
         let push_up = document.getElementById('push_message');
 
         let res;
-        if(customer_name.value != '' && customer_lastname.value != ''  
-        && customer_country.value != '' && customer_street.value != '' && customer_postalcode.value != '' 
-        && customer_city.value != ''  && customer_phone.value != '' 
-        && customer_email.value != '')
+        if(customer_email.value != '')
         {
             if(product_id.length > 0)
             {
@@ -289,15 +232,6 @@
                 }
                 
                 res = {
-                    customer_name:customer_name.value,
-                    customer_lastname:customer_lastname.value,
-                    customer_company: customer_company.value,
-                    customer_country:customer_country.value,
-                    customer_street:customer_street.value,
-                    customer_postalcode:customer_postalcode.value,
-                    customer_city:customer_city.value,
-                    customer_nip:customer_nip.value,
-                    customer_phone:customer_phone.value,
                     customer_email:customer_email.value,
                     products: products,
                     rabat : prce_precent.value,
@@ -317,7 +251,7 @@
                 cache: false,
                 contentType: 'application/json',
                 data: JSON.stringify({
-                    method: 'add_new_customer',
+                    method: 'add_old_customer',
                     api_key: `${cookieValue}`,
                     ip: "<?=IP_USER;?>",
                     user_id: "<?=wp_get_current_user()->ID;?>",

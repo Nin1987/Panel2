@@ -51,7 +51,7 @@ add_filter( 'template_include', function( $template ) {
     return get_template_directory() . '/template/panel/'.$templ.'.php';
 } );
 
-define('SITE', '/akamit');
+define('SITE', '/panel');
 
 function my_login_form()
 {
