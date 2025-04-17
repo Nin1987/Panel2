@@ -3,9 +3,6 @@
     {
         header("Location: ".SITE."/");
     }
-
-    $NinPdf = new NinPdf();
-    $NinPdf->test();
 ?>
 <?php get_header();?>
 <main class="bc-color1">
@@ -137,6 +134,12 @@
                     <div class="col ps-0 pt-5 pb-5">
                         <button onclick="make_offer();" class="button-circle button-orange">Utwórz ofertę</button>
                     </div>
+                    <div class="col ps-0 pt-5 pb-5" id="pdf_button" style="display: block;">
+                        <form action="/akamit/panel/oferty/pdf/" method="post">
+                            <input type="submit"  value ="Pobierz pdf" class="button-circle button-orange" />
+                        </form>
+                        
+                    </div>
                 </div>
             </div>
         
@@ -207,6 +210,43 @@
 
             });
         });
+
+        function add_offer_to_your_list(curent_id, curent_name, curent_address, curent_email, curent_price, salary, code_number)
+        {
+            $.ajax({
+                url: '/akamit/wp-json/panel/v1/api/',
+                type: 'POST',
+                cache: false,
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    method: 'add_new_offer',
+                    token: 'AboaijSAID89dD8DUhiDHS7a23ibBAIUbd787',
+                    curent_id: curent_id,
+                    curent_name: curent_name,
+                    curent_address: curent_address,
+                    curent_email: curent_email,
+                    curent_price: curent_price,
+                    salary: salary,
+                    code_number: code_number,
+                    user_id: "<?=wp_get_current_user()->ID;?>"
+
+                }),
+                success: function(response) {
+                    console.log("asd");
+                        let json = (response);
+                        console.log(json);
+                        if(json.error == 0)
+                        {
+                            return json.message;
+                        }
+                        else
+                        {
+                            return json.message;
+                        }
+                }
+            });
+            return 'ddd';
+        }
     function make_offer()
     {
 
@@ -244,7 +284,7 @@
                 .find((row) => row.startsWith("auth_key="))
                 ?.split("=")[1];
                 
-
+                document.getElementById('push_tmessage').innerHTML="";
             $.ajax({
                 url: 'https://sklep.megawebsite.pl/wp-json/pro_api/v1/panel',
                 type: 'POST',
@@ -260,18 +300,19 @@
 
                 success: function(response) {
                         let json = (response);
-                        console.log(json);
+                        
                         if(json.error == 0)
                         {
                             document.getElementById('push_title').innerHTML="Oferta dodana";
+                            add_offer_to_your_list(json.customer_id, 'imie', 'adres', customer_email.value, document.getElementById('curent_price').innerHTML, document.getElementById('you_salary').innerHTML, json.cupon);
+                            document.getElementById("pdf_button").style.display="block";
                         }
                         else
                         {
                             document.getElementById('push_title').innerHTML="Wystąpił błąd";
                         }
-                        document.getElementById('push_tmessage').innerHTML=json.message;
+                        document.getElementById('push_tmessage').innerHTML+=json.message;
                         push_up.style.display="block";
-
                 }
             });
             }

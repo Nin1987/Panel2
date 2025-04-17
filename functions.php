@@ -31,6 +31,8 @@ add_filter( 'query_vars', function( $query_vars ) {
     return $query_vars;
 } );
 
+
+
 add_filter( 'template_include', function( $template ) {
     $templ='portfel';
 
@@ -43,15 +45,18 @@ add_filter( 'template_include', function( $template ) {
         $templ = get_query_var( 'panel' );
     }
     if ( get_query_var( 'sub_panel' ) != false || get_query_var( 'sub_panel' ) != '' ) {
+      
         
-        $templ = get_query_var( 'panel' ).'_'.get_query_var( 'sub_panel' );
+            $templ = get_query_var( 'panel' ).'_'.get_query_var( 'sub_panel' );
+        
+
     }
 
 
     return get_template_directory() . '/template/panel/'.$templ.'.php';
 } );
 
-define('SITE', '/panel');
+define('SITE', '/akamit');
 
 function my_login_form()
 {
