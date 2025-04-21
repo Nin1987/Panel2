@@ -5,9 +5,9 @@ class Endpoints
     private $allowed_methods;
     public function __construct()
     {
-        $this->allowed_methods = ['add_new_offer'];
+        $this->allowed_methods = ['add_new_offer', 'get_offer_list', 'delete_cupon'];
         $this->routh();
-        $this->routh_pdf();
+
        
     }
     public function routh()
@@ -16,16 +16,6 @@ class Endpoints
             register_rest_route( 'panel/v1', '/api', [
                 'methods' => 'POST',
                   'callback' => [$this, 'request'],
-                  'permission_callback' => '__return_true'
-                ] );
-        } );
-    }
-    public function routh_pdf()
-    {
-        add_action( 'rest_api_init', function () {
-            register_rest_route( 'panel/v1', '/pdf', [
-                'methods' => 'POST',
-                  'callback' => [$this, 'make_pdf'],
                   'permission_callback' => '__return_true'
                 ] );
         } );
@@ -66,12 +56,49 @@ class Endpoints
             
         return rest_ensure_response(($return));
     }
-
-    private function make_pdf()
+    private function get_offer_list($data)
     {
-        $NinPdf = new NinPdf();
-        $NinPdf->test();
-        rest_ensure_response([]);
+        $filtrs=[1 ,2, 3, 4];
+        $filtr_type = sanitize_text_field($data['filtr_type']);
+        $user_id = $data['user_id'];
+        $return = [];
+
+        if(in_array($filtr_type, $filtrs))
+        {
+            global $wpdb;
+
+            $table_name = $wpdb->prefix.'usermeta';
+
+            $usermeta_table = $wpdb->get_results(
+                $wpdb->prepare(
+                    "SELECT * 
+                    FROM ".$table_name." 
+                    WHERE user_id = %d AND meta_key = %s
+                    ",
+                    $user_id, 'user_offer_pro',
+                    OBJECT
+                    )
+                );
+
+                if(is_array($usermeta_table))
+                {
+                    foreach($usermeta_table as $usermeta)
+                    {
+                        $value = unserialize($usermeta->meta_value);
+
+                        $status = $value['status'];
+
+                        if($status == $filtr_type || $filtr_type == 1)
+                        {
+                            $return[] = $value;
+                        }
+                    }
+
+                    return (array('error'=> 0, 'message'=> $return));
+                }
+                return (array('error'=> 1, 'message'=> ''));;
+        }
+        return (array('error'=> 1, 'message'=> ''));;
     }
     private function add_new_offer($data)
     {
@@ -96,9 +123,10 @@ class Endpoints
                             'curent_email'=>$curent_email,
                             'curent_price'=>$curent_price,
                             'salary'=>$salary,
-                            'code_number'=>$code_number
+                            'code_number'=>$code_number,
+                            'status'=> 2
                         ];
-                if(add_user_meta($user_id, 'user_offer_pro', serialize($value))!= false)
+                if(add_user_meta($user_id, 'user_offer_pro', ($value))!= false)
                 {
                     $return = (array('error'=> 0, 'message'=> 'Dodano ofertę do Twojej listy ofert'));
                 }
@@ -118,6 +146,63 @@ class Endpoints
         }
             
         return $return;
+    }
+    private function delete_cupon($data)
+    {
+        $user_id = $data['user_id'];
+        if(isset($data['cupon']) && !empty($data['cupon']))
+        {
+            $cupon = sanitize_text_field($data['cupon']);
+
+            global $wpdb;
+
+            $table_name = $wpdb->prefix.'usermeta';
+
+            $usermeta_table = $wpdb->get_results(
+                $wpdb->prepare(
+                    "SELECT * 
+                    FROM ".$table_name." 
+                    WHERE user_id = %d AND meta_key = %s
+                    ",
+                    $user_id, 'user_offer_pro',
+                    OBJECT
+                    )
+                );
+
+            if($usermeta_table)
+            {
+                
+                foreach($usermeta_table as $usermeta)
+                {
+                    $meta_value = unserialize($usermeta->meta_value);
+                    
+        
+                        if($cupon == $meta_value['code_number'])
+                        {
+                            $temp_array = $meta_value;
+                            $temp_array['status'] = 4;
+                            $meta_value['status'] = 4;
+                            $parameters = array(
+                                'code_number' => $cupon,
+                            );
+
+                            $wpdb->update($table_name,
+                                array(
+                                        'meta_value' => serialize($meta_value)
+                                ),
+                                array('umeta_id' => $usermeta->umeta_id ),
+                               
+
+                            );
+                            return (array('error'=> 0, 'message'=> $usermeta_table));
+                        }
+                       
+                }
+                
+                return (array('error'=> 1, 'message'=>'brak'));
+            }
+        }
+        return (array('error'=> 1, 'message'=> 'Brak wymaganych danych'));
     }
 }
 

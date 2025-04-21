@@ -118,7 +118,7 @@
                 <div class="row table-rows ps-4 pe-4 bc-color2">
                     <div class="col sub-title pb-3 pt-3 bottom-silver-border">
                         <input type="hidden" id="total_price_hidden" value = 0>
-                        <input type="number" max="25" min="0" id="prce_precent" class="panel-input  sub-title" placeholder="0"> <span class="sub-title">%</span>
+                        <input type="number" max="20" min="0" id="prce_precent" class="panel-input  sub-title" placeholder="0"> <span class="sub-title">%</span>
                     </div>
                     <div class="col sub-title pb-3 pt-3 bottom-silver-border">
                         <span id="total_price">0 zł</span>
@@ -181,6 +181,7 @@
                 let precent_price = document.getElementById('prce_precent');
                 let total_price = document.getElementById('total_price');
                 let curent_price = document.getElementById('curent_price');
+                let total_price_hidden = document.getElementById('total_price_hidden');
                 let you_salary = document.getElementById('you_salary');
                 let int_total = 0;
                 let int_curent = 0;
@@ -199,9 +200,9 @@
                     }
                     int_curent = int_total - (precent_price.value/100*int_total);
                     int_curent_price = int_total-int_curent;
-                    my_salary = 0.25*int_total - (precent_price.value/100*int_total);
+                    my_salary = 0.20*int_total - (precent_price.value/100*int_total);
 
-                
+                    total_price_hidden.value = int_total;
                     total_price.innerHTML = int_total+ " zł";
                     curent_price.innerHTML = Number(Math.round(int_curent + 'e+2')+ 'e-2')+ " zł";
                     you_salary.innerHTML = Number(Math.round(my_salary + 'e+2')+ 'e-2')+ " zł";
@@ -214,7 +215,7 @@
         function add_offer_to_your_list(curent_id, curent_name, curent_address, curent_email, curent_price, salary, code_number)
         {
             $.ajax({
-                url: '/akamit/wp-json/panel/v1/api/',
+                url: '/panel/wp-json/panel/v1/api/',
                 type: 'POST',
                 cache: false,
                 contentType: 'application/json',
@@ -245,13 +246,14 @@
                         }
                 }
             });
-            return 'ddd';
+           
         }
     function make_offer()
     {
 
         let customer_email = document.getElementById('customer_email');
         let prce_precent = document.getElementById('prce_precent');
+        let total_price = document.getElementById('total_price_hidden');
 
         let product_id = document.getElementsByName('product_id');
         let price_product = document.getElementsByName('price_product');
@@ -295,6 +297,7 @@
                     api_key: `${cookieValue}`,
                     ip: "<?=IP_USER;?>",
                     user_id: "<?=wp_get_current_user()->ID;?>",
+                    min: total_price.value,
                     cart: res
                 }),
 
@@ -304,7 +307,7 @@
                         if(json.error == 0)
                         {
                             document.getElementById('push_title').innerHTML="Oferta dodana";
-                            add_offer_to_your_list(json.customer_id, 'imie', 'adres', customer_email.value, document.getElementById('curent_price').innerHTML, document.getElementById('you_salary').innerHTML, json.cupon);
+                            add_offer_to_your_list(json.customer_id, json.customer_name, json.customer_adress, customer_email.value, document.getElementById('curent_price').innerHTML, document.getElementById('you_salary').innerHTML, json.cupon);
                             document.getElementById("pdf_button").style.display="block";
                         }
                         else

@@ -1,6 +1,7 @@
 <?php
 
 require('options/init.php');
+require('src/panel/init.php');
 function add_js()
 {
     wp_enqueue_script( 'jquery-nin', 'https://code.jquery.com/jquery-3.7.0.min.js', array(), '3.7', false );
@@ -56,7 +57,7 @@ add_filter( 'template_include', function( $template ) {
     return get_template_directory() . '/template/panel/'.$templ.'.php';
 } );
 
-define('SITE', '/akamit');
+define('SITE', '/panel');
 
 function my_login_form()
 {
